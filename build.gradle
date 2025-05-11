@@ -1,0 +1,66 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+group = 'com.microservices'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    api 'io.jsonwebtoken:jjwt-api:0.11.5'
+
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    api 'org.slf4j:slf4j-api:1.7.36'
+
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            pom {
+                name = 'JWT Token Provider'
+                description = 'JWT Token Provider for Spring Security'
+                url = 'https://github.com/lkienkle11/jwt-token-provider.git'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'lkienkle11'
+                        name = 'lkienkle11'
+                        email = 'kiendeptrai2002@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/lkienkle11/jwt-token-provider.git'
+                    developerConnection = 'scm:git:ssh://github.com/lkienkle11/jwt-token-provider.git'
+                    url = 'https://github.com/lkienkle11/jwt-token-provider.git'
+                }
+            }
+        }
+    }
+    repositories {
+        mavenLocal()               // cho publishToMavenLocal
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
