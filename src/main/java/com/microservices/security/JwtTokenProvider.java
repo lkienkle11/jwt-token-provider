@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -63,10 +64,10 @@ public class JwtTokenProvider {
         props.put("uid",       claims.get("uid"));
         props.put("type",      claims.get("type"));
         props.put("jti",       claims.getId());
-        props.put("createdAt", claims.getIssuedAt());
+        props.put("createdAt", Instant.now().toEpochMilli());
+        props.put("created_at", Instant.now().toEpochMilli());
         return props;
     }
-
 
     public boolean validateToken(String token) {
         try {
