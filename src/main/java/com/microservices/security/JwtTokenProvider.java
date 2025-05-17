@@ -69,6 +69,17 @@ public class JwtTokenProvider {
         return props;
     }
 
+    public Map<String, Object> getPropertiesFromClaimsAllowExpired(String token) {
+        Claims claims = parseClaimsAllowExpired(token);
+        Map<String, Object> props = new HashMap<>();
+        props.put("uid",       claims.get("uid"));
+        props.put("type",      claims.get("type"));
+        props.put("jti",       claims.getId());
+        props.put("createdAt", Instant.now().toEpochMilli());
+        props.put("created_at", Instant.now().toEpochMilli());
+        return props;
+    }
+
     public boolean validateToken(String token) {
         try {
             parseClaims(token);
